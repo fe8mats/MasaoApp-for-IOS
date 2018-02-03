@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  MasaoProducer
 //
-//  Created by 松田哲弥 on 2017/09/28.
-//  Copyright © 2017年 Terry. All rights reserved.
+//  Created by Tetsuya Matsuda on 2017/09/28.
+//  Copyright © 2017 Tex. All rights reserved.
 //
 
 import UIKit
