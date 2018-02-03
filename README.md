@@ -1,5 +1,5 @@
 # MasaoApp for iOS
-<u>Developer: Tex (Tetsuya Matsuda)</u>,
+Developer: Tex (Tetsuya Matsuda),
 * Official Website - http://tex1.symphonic-net.com/
 * Super Masao MY - <http://tex1.symphonic-net.com/>
 * Twitter - [@393mats](https://twitter.com/393Mats)
