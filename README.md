@@ -1,4 +1,4 @@
-# MasaoApp for iOS
+# MasaoApp for iOS - build 1.0.6
 Developer: Tex (Tetsuya Matsuda),
 * Official Website - <http://tm.774music.com/>
 * Super Masao MY - <http://tex1.symphonic-net.com/>
