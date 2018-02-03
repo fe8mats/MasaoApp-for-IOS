@@ -19,6 +19,22 @@ The app's QR reader ignore QR code if "ms_app://" is not included. This is a tri
 
 **Now in this version (Build 1.0.6), QRsharing is not supported yet.**
 
+---
+# Files not included in git
+- Icons, certificate, etc...
+- Main_html/
+    - CanvasMasao.js
+    - css/
+        - materialize.min.css
+        - mtf/
+            - MaterialIcons-Regular.eot
+            - MaterialIcons-Regular.ttf
+            - MaterialIcons-Regular.woff
+            - MaterialIcons-Regular.woff2
+    - js/
+        - materialize.min.js
+        - jquery-3.2.1.min.js
+
 # Used libraries and formats
 * [mc_canvas](http://ryo-9399.github.io/) - JSMasao main program
 * [masao-json-format](https://spec.masao.space/masao-json-format/) - Masao gamedata format
@@ -26,6 +42,6 @@ The app's QR reader ignore QR code if "ms_app://" is not included. This is a tri
 * [Materialize](http://materializecss.com/) - CSS framework
 * [Material icons]() - Good icons
 * jQuery
-
+---
 # License
 MIT, but licenses of used libraries and formats are depending on their original license.
