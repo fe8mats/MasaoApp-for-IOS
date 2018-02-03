@@ -1,0 +1,303 @@
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fixed-action-btn.toolbar {
+  padding-bottom: 60px;
+}
+
+body {
+  height: calc(100vh - 62px);
+  width: 100%;
+  background-color: gray;
+  overflow: 'visible';
+}
+
+.onbody {
+  z-index: 3;
+}
+
+.container {
+  position: relative;
+  margin: 0px;
+}
+
+.vtc {
+  display: none;
+}
+
+.hzt {
+  display: block;
+}
+
+#nav_div {
+  overflow-y: scroll;
+}
+
+#editor {
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  display: block;
+  z-index: 2;
+  background-color: gray;
+}
+
+#preview {
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  display: none;
+  z-index: 1;
+}
+
+#export_area {
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  display: none;
+  z-index: 1;
+}
+
+#g_option_area {
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  display: none;
+  z-index: 1;
+}
+
+#sp_file_area {
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  display: none;
+  z-index: 1;
+}
+
+#g_save_area {
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  display: none;
+  z-index: 1;
+}
+
+#gplay {
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  display: none;
+  z-index: 1;
+}
+
+#c0 {
+  position: absolute;
+  z-index: 2;
+}
+
+#c1 {
+  position: absolute;
+  z-index: 1;
+}
+
+#c2 {
+  position: absolute;
+  background-color: #b3e5fc;
+  z-index: 0;
+}
+
+#plt1 {
+  position: absolute;
+  background-color: #b3e5fc;
+}
+
+#prev_v {
+  width: 512px;
+  height: 350px;
+  overflow: hidden;
+}
+
+#pid {
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  width: 512px;
+  height: 430px;
+}
+
+#game_v {
+  width: 512px;
+  height: 350px;
+  overflow: hidden;
+}
+
+#pid2 {
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  width: 512px;
+  height: 430px;
+}
+
+/* Smartphone Vertical iPhonePlus~*/
+
+@media screen and (max-width: 415px) {
+  #pid, #pid2 {
+    transform-origin: 0% 0%;
+    transform: scale(0.7);
+    height: 840px;
+  }
+  #prev_v, #game_v {
+    width: 358px;
+    overflow: hidden;
+    height: 590px;
+  }
+  .fixed-action-btn.toolbar {
+    padding-bottom: 55px;
+  }
+  .showpc {
+    display: none;
+  }
+  .vtc {
+    display: none;
+  }
+  .hzt {
+    display: block;
+  }
+}
+
+/* Smartphone Horizontal iPhonePlus~*/
+
+@media screen and (max-height: 415px) {
+  #pid, #pid2 {
+    transform-origin: 0% 0%;
+    transform: scale(0.7);
+    height: 498px;
+    width: 812px;
+  }
+  #prev_v, #game_v {
+    width: 580px;
+    height: 345px;
+    overflow: hidden;
+  }
+  .fixed-action-btn.toolbar {
+    padding-bottom: 55px;
+  }
+  .showpc {
+    display: none;
+  }
+  .vtc {
+    display: block;
+  }
+  .hzt {
+    display: none;
+  }
+}
+
+/* Smartphone Vertical iPhone6~*/
+
+@media screen and (max-width: 380px) {
+  #pid, #pid2 {
+    transform-origin: 0% 0%;
+    transform: scale(0.7);
+    height: 750px;
+  }
+  #prev_v, #game_v {
+    width: 358px;
+    overflow: hidden;
+    height: 550px;
+  }
+  .showpc {
+    display: none;
+  }
+  .vtc {
+    display: none;
+  }
+  .hzt {
+    display: block;
+  }
+}
+
+/* Smartphone Horizontal iPhone6~*/
+
+@media screen and (max-height: 380px) {
+  #pid, #pid2 {
+    transform-origin: 0% 0%;
+    transform: scale(0.7);
+    height: 430px;
+    width: 812px;
+  }
+  #prev_v, #ame_v {
+    width: 580px;
+    height: 310px;
+    overflow: hidden;
+  }
+  .showpc {
+    display: none;
+  }
+  .vtc {
+    display: block;
+  }
+  .hzt {
+    display: none;
+  }
+}
+
+/* Smartphone Vertical iPhoneSE*/
+
+@media screen and (max-width: 320px) {
+  #pid, #pid2 {
+    transform-origin: 0% 0%;
+    transform: scale(0.6);
+    height: 800px;
+  }
+  #prev_v, #game_v {
+    width: 307px;
+    overflow: hidden;
+    height: 600px;
+  }
+  .showpc {
+    display: none;
+  }
+  .vtc {
+    display: none;
+  }
+  .hzt {
+    display: block;
+  }
+}
+
+/* Smartphone Horizontal iPhoneSE */
+
+@media screen and (max-height: 320px) {
+  #pid, #pid2 {
+    transform-origin: 0% 0%;
+    transform: scale(0.6);
+    height: 410px;
+    width: 812px;
+  }
+  #prev_v, #game_v {
+    width: 497px;
+    height: 250px;
+    overflow: hidden;
+  }
+  .showpc {
+    display: none;
+  }
+  .vtc {
+    display: block;
+  }
+  .hzt {
+    display: none;
+  }
+}

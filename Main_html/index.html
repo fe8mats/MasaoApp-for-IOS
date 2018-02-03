@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Masao App Main Program                                     -->
+  <!-- Version 1.0.2 2018/1/2                                     -->
+  <!-- Copyright 2018 Tex "Tetsuya Matsuda"                       -->
+  <!-- Masao Construction is developed by Naoto Fukuda            -->
+  <!-- JS Masao is developed by Ryo                               -->
+  <!-- masao-json-format is defined by Uhyo                       -->
+  <!-- CSS framework "Materialized" is used on this apprication   -->
+  <!--                                                            -->
+  <!-- Totemo Zatsude Kitanai Code De Suimasen                    -->
+  <!-- Shoshinsya Yanen Yurushite Hahahaha                        -->
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=320,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!--Import Google Icon Font-->
+  <link type="text/css" rel="stylesheet" href="./css/icon.css" media="screen,projection" />
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="./css/materialize.min.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="./css/bamp.css" />
+  <link type="text/css" rel="stylesheet" href="./css/loading.css" />
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="./js/bamp_op.js"></script>
+  <script type="text/javascript">
+    //Materialize Option
+    $(document).ready(function() {
+      $('.modal').modal();
+      $('.carousel').carousel();
+      $('.slide_menu').sideNav({
+        menuWidth: 220,
+        edge: 'left',
+        closeOnClick: true,
+        draggable: false,
+      });
+    });
+    $(function() {
+      $(document).on('contextmenu', function(e) {
+        return false;
+      });
+    });
+
+    function sb_show() {
+      $('..slide_menu').sideNav('show');
+    }
+    //Declare variable
+    var img_plt1 = new Image(); //Image object for PLT
+    img_plt1.src = "ms_img/parts_2_.gif?" + new Date().getTime();
+    var img_plt = new Image(); //Image object for PLT
+    img_plt.src = "ms_img/parts_1_.gif?" + new Date().getTime();
+    var plt1_chosen_x = 0;
+    var plt1_chosen_x2 = 0;
+    var plt1_chosen_y = 0;
+    var plt1_chip = ".";
+    var mx_temp;
+    var my_temp;
+    var map0 = new Array();
+    var map1 = new Array();
+    var map2 = new Array();
+    var lay0 = new Array();
+    var lay1 = new Array();
+    var lay2 = new Array();
+    var map0_ = new Array();
+    var map1_ = new Array();
+    var map2_ = new Array();
+    var map0_2 = new Array();
+    var map1_2 = new Array();
+    var map2_2 = new Array();
+    var lay0_ = new Array();
+    var lay1_ = new Array();
+    var lay2_ = new Array();
+    var gs1_ = new Array();
+    var param_only;
+    var mouse_c = 0;
+    var toast_switch = "1";
+    var iframe_c = false;
+    var mframe_c = false;
+    var pw_h1 = '<center><script type="text/javascript" src="CanvasMasao.js" charset="UTF-8"><\/script>';
+    var pw_h2 = '<script type="text/javascript">';
+    var pw_h3 = ' <\/script><\/body><\/html>';
+
+    //Set loader
+    //This is not used for App, just for debug.
+    function loader_sw(c) {
+      var load_elem = document.getElementById("menu_loader");
+      if (c == 1) {
+        load_elem.innerHTML = '<div class="indeterminate" style="background-color: red;"></div>';
+      } else {
+        load_elem.innerHTML = '<div class="determinate" style="width:0%; background-color: red;"></div>';
+      }
+    }
+  </script>
+
+  <title>BAMP2</title>
+</head>
+
+<!-- Body -->
+
+<body onload="draw()">
+  <div id="loader-bg">
+    <div id="loader">
+      <img src="ms_img/loading.gif" width="80" height="80" alt="Now Loading..." /><br>
+      <b>Now loading....</b>
+    </div>
+  </div>
+
+
+  <!--Import materialize.js-->
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+  <!-- Head Bar -->
+  <div id="slide-out" class="side-nav">
+    <div id="nav_div">
+      <ul>
+        <!-- QR Reader -->
+        <li> <a href="javascript:Swift_scan();" class='small blue-text text-darken-2 waves-effect waves-light'>
+					<i class="material-icons">linked_camera</i>Scan
+				</a> </li>
+        <li> <a href="javascript:Swift_newproject();" class='blue-text text-darken-2 waves-effect waves-light'>
+          <i class="material-icons">open_in_new</i>New
+      </a> </li>
+        <li> <a href='javascript:Swift_load();' class='blue-text text-darken-2 waves-effect waves-light'>
+					<i class="material-icons">folder</i>Folder
+				</a> </li>
+        <li> <a href='javascript:tab_back(2);' class='blue-text text-darken-2 waves-effect waves-light'>
+					<i class="material-icons">save</i>Save
+				</a> </li>
+        <li> <a href="javascript:export_html()" class='blue-text text-darken-2 waves-effect waves-light'>
+					<i class="material-icons">code</i>Export
+				</a> </li>
+        <li> <a href='javascript:tab_back(3);' class='blue-text text-darken-2 waves-effect waves-light'>
+					<i class="material-icons">settings</i>Setting
+				</a> </li>
+        <li> <a href='javascript:Swift_info();' class='blue-text text-darken-2 waves-effect waves-light'>
+					<i class="material-icons">textsms</i>About
+				</a> </li>
+        <li class="divider"></li>
+        <li> <a href='javascript:yet();' class='blue-text text-darken-2 waves-effect waves-light'>
+					<i class="material-icons">share</i>Share
+				</a> </li>
+      </ul>
+    </div>
+  </div>
+  <!-- Menu for Horizontal -->
+  <div id="menu_hzt" class="modal">
+    <div class="modal-content row">
+      <center>
+        <div class="col s3"><a href="javascript:Swift_scan();" class="btn-floating btn-large waves-effect waves-dark btn-flat"><i class="material-icons black-text">linked_camera</i></a><br>Scan</div>
+        <div class="col s3"><a href="javascript:Swift_newproject();" class="btn-floating btn-large waves-effect waves-dark btn-flat"><i class="material-icons black-text">open_in_new</i></a><br>New</div>
+        <div class="col s3"><a href="javascript:Swift_load();" class="btn-floating btn-large waves-effect waves-dark btn-flat"><i class="material-icons black-text">folder</i></a><br>Folder</div>
+        <div class="col s3"><a href='javascript:tab_back(2);' class="btn-floating btn-large waves-effect waves-dark btn-flat"><i class="material-icons black-text">save</i></a><br>Save</div>
+        <div class="col s3"><a href="javascript:export_html()" class="btn-floating btn-large waves-effect waves-dark btn-flat"><i class="material-icons black-text">code</i></a><br>Export</div>
+        <div class="col s3"><a href='javascript:tab_back(3);' class="btn-floating btn-large waves-effect waves-dark btn-flat"><i class="material-icons black-text">settings</i></a><br>Setting</div>
+        <div class="col s3"><a href='javascript:Swift_info();' class="btn-floating btn-large waves-effect waves-dark btn-flat"><i class="material-icons black-text">textsms</i></a><br>About</div>
+        <div class="col s3"><a href='javascript:yet();' class="btn-floating btn-large waves-effect waves-dark btn-flat"><i class="material-icons black-text">share</i></a><br>Share</div>
+    </div>
+  </div>
+  <!-- Head Bar -->
+  <nav>
+    <div class="nav-wrapper blue lighten-2"> <span class="brand-logo center">Masao</span>
+      <ul class="left">
+        <li class="hzt"> <a href='#' data-activates="slide-out" class="slide_menu waves-effect waves-light">
+						<i class="material-icons">menu</i>
+					</a> </li>
+        <li class="vtc"> <a href='#menu_hzt' class="waves-effect waves-light">
+  						<i class="material-icons">menu</i>
+  					</a> </li>
+        <li id="menu_plt1"> <a href="#modal1" class="waves-effect waves-light">
+						<i class="material-icons">palette</i>
+					</a> </li>
+      </ul>
+      <ul class="right">
+        <li id="menu_prev"> <a href="javascript:preview()" class="waves-effect waves-light">
+						<i class="material-icons">play_circle_filled</i>
+					</a> </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="progress" id="menu_loader" style="margin:0px; padding:0px; background-color: #64B5F6;">
+    <div class="indeterminate" style="background-color: red;"> </div>
+  </div>
+  <!-- Main Platform -->
+  <div class="container" style="width:100%; height:100%;">
+    <!-- Main Editor -->
+    <div id="editor" style="width:100vw; height:100%; overflow:scroll; border:solid 1px gray">
+      <canvas id="c0" width="5760px" height="960px"></canvas>
+      <canvas id="c1" width="5760px" height="960px"></canvas>
+      <!-- Normal Layer --><canvas id="c2" width="5760px" height="960px"></canvas>
+      <!-- Second Layer -->
+    </div>
+    <!-- Preview -->
+    <div id="preview" style="margin:0px; padding:0px; width:100vw; height:100%; overflow:hidden; border:solid 1px gray; background-color:silver">
+      <center>
+        <div id="prev_v" style="margin:0px; padding:0px; text-align: center;">
+          <center>
+            <div id="abc" style="margin:0px; padding:0px;"> </div>
+        </div>
+    </div>
+    <!-- Play -->
+    <div id="gplay" style="margin:0px; padding:0px; width:100vw; height:100%; overflow:hidden; border:solid 1px gray; background-color:silver">
+      <center>
+        <div id="game_v" style="margin:0px; padding:0px; text-align: center;">
+          <center>
+            <div id="gp_area" style="margin:0px; padding:0px;"> </div>
+        </div>
+    </div>
+    <!-- Export -->
+    <div id="export_area" style="margin:0px; padding:0px; width:100vw; height:100%; overflow:hidden; border:solid 1px gray; background-color:#e3f2fd">
+      <center>
+        <form name="f3"> <textarea id="textarea_export" wrap="off" style="width:100%;height:calc(100vh - 70px); resize: none;"></textarea> </form>
+    </div>
+
+    <!-- Files List -->
+    <div id="sp_files_area" style="margin:0px; padding:0px; width:100vw; height:100%; overflow:scroll; border:solid 1px gray; background-color:white">
+      <div id="spf"> </div>
+    </div>
+
+    <!-- GameSetting -->
+    <div class="fixed-action-btn vertical toolbar onbody" id="ops_onbody" style="display:none;"> <a class="btn-floating btn-large  light-blue lighten-1">
+			<i class="material-icons">sort</i>
+		</a>
+      <ul>
+        <li class="waves-effect waves-light"> <a href="javascript:ops_sort(0);">ALL</a> </li>
+        <li class="waves-effect waves-light"> <a href="javascript:ops_sort(1);">Masao</a> </li>
+        <li class="waves-effect waves-light"> <a href="javascript:ops_sort(2);">Enemy</a> </li>
+        <li class="waves-effect waves-light"> <a href="javascript:ops_sort(3);">Parts</a> </li>
+        <li class="waves-effect waves-light"> <a href="javascript:ops_sort(4);">System</a> </li>
+        <li class="waves-effect waves-light"> <a href="javascript:ops_sort(5);">Text</a> </li>
+      </ul>
+    </div>
+    <div id="g_option_area" style="margin:0px; padding:0px; width:100vw; height:100%; overflow:scroll; border:solid 1px gray; background-color:#e3f2fd">
+      <center>
+        <div id="gop"> </div>
+    </div>
+    <!-- Save page -->
+    <div id="g_save_area" style="margin:0px; padding:0px; width:100vw; height:100%; overflow:scroll; border:solid 1px gray; background-color:#e3f2fd">
+      <center>
+        <div class="card-panel hoverable left-align " style="width:90%;"> <b>Stage Title</b> <span>
+			<input id="g_st" value="" type="text" class="validate">
+			<label for="g_st">The stsge title you created!</label>
+		</span> </div>
+        <div class="card-panel hoverable left-align " style="width:90%;"> <b>Your Name</b> <span>
+			<input id="g_cn" value="" type="text" class="validate">
+			<label for="g_cn">Write your name!</label>
+		</span> </div> <a href="javascript:save_bamp(2)" class="waves-effect waves-light btn">
+			<i class="material-icons">file_download</i>Save</a>
+    </div>
+    <!-- Palette on Modal sheet -->
+    <div id="modal1" class="modal bottom-sheet" style="width:100vw; overflow:scroll; background-color: #b3e5fc;">
+      <!-- Palette Contents -->
+      <div class="modal-content" style="margin:0px; padding:0px;overflow:hidden;">
+        <div style="width:100%;  height:130px; overflow:hidden;"> <canvas id="plt1" width="2304px" height="128px"></canvas> </div>
+      </div>
+    </div>
+
+    <!-- Load Window -->
+    <div id="modal2" class="modal">
+      <div class="modal-content">
+        <h4>Load Masao JSON</h4>
+        <form action="#">
+          <div class="file-field input-field">
+            <div class="btn"> <span>File</span> <input type="file" id="mc_load" accept="text/json"> </div>
+            <div class="file-path-wrapper"> <input class="file-path validate" type="text" id="mc_load_txt"> </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer"> <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat">Close</a> </div>
+    </div>
+    <!-- About Window -->
+    <div id="modal3" class="modal">
+      <div class="modal-content">
+        <h4>MasaoApp</h4>
+        <b>Version:</b>β1.0.2 - 2018/1/9<br>
+        <b>Developer:</b>Tex (Tetsuya Matsuda)<br> http://tex1.symphonic-net.com
+        <br> http://tm.774music.com
+        <br> Twitter @393mats
+        <hr> License & Library info:<br>
+        <b>-まさおコンストラクション-</b><br> http://www.t3.rim.or.jp/~naoto/naoto.html
+        <br>
+        <b>-JS Masao Library-</b><br> http://ryo-9399.github.io/
+        <br>
+        <b>-Materialize-</b><br> http://materializecss.com
+        <br>
+        <b>JQuery</b>
+        <hr> This app is made by HTML5.<br>
+      </div>
+    </div>
+    <!-- Infomation Window -->
+    <div id="modal4" class="modal">
+      <div class="modal-content">
+        <center>
+          <h4><span id="g_title">TITLE</span></h4>
+          <hr>
+          <b>Creator: </b><span id="g_user">testboy</span>
+      </div>
+    </div>
+    <!-- MasaoApp Main Program -->
+    <script type="text/javascript" style="width:100%; height:192px; ">
+      //Declare CSV for palette
+      const op_csv = "Air,.,0,0\n" +
+        "Masao,A,1,1\n" +
+        "Coin,9,2,2\n" +
+        "Star,8,3,3\n" +
+        "Turtle,B,4,4\n" +
+        "Turtle_Fall,C,5,5\n" +
+        "Turtle_3,D,6,6\n" +
+        "Poppi_UD,H,7,7\n" +
+        "Poppi_Straight,I,8,8\n" +
+        "Poppi_Straight_3,J,9,9\n" +
+        "Pikachi,E,10,10\n" +
+        "Chikorin,F,11,11\n" +
+        "Mariri,O,12,12\n" +
+        "Hinorarashi,G,13,13\n" +
+        "Yachamo,P,14,14\n" +
+        "Mizutaro,Q,15,15\n" +
+        "Taiking,W,16,16\n" +
+        "Kuragesso,X,17,17\n" +
+        "Eamuzu,R,18,18\n" +
+        "Turtle_Chase,{,19,19\n" +
+        "Pikachi_Chase,},20,20\n" +
+        "Grada,S,21,21\n" +
+        "Kaioru,T,22,22\n" +
+        "Senkuza,Z,23,23\n" +
+        "Item_FireFlower,m,24,24\n" +
+        "Item_Valia,n,25,25\n" +
+        "Item_Time,o,26,26\n" +
+        "Item_Jet,p,27,27\n" +
+        "Item_helmet,q,28,28\n" +
+        "Item_Tail,r,29,29\n" +
+        "Item_Drill,s,30,30\n" +
+        "Item_Grenade,t,31,31\n" +
+        "Item_Coin_1,k,32,32\n" +
+        "Item_Coin_3,l,33,33\n" +
+        "Item_1up,y,34,34\n" +
+        "Grass,3,35,35\n" +
+        "Block_Bricks,a,36,0\n" +
+        "Block_Crag,b,37,1\n" +
+        "Block_Bricks_Blue,c,38,2\n" +
+        "Block_Iron,d,39,3\n" +
+        "Block_Iron_Pillar1,e,40,4\n" +
+        "Block_Iron_Pillar2,f,41,5\n" +
+        "Block_Soil,g,42,6\n" +
+        "Block_Wall,h,43,7\n" +
+        "Block_Bricks_Yellow,i,44,8\n" +
+        "Block_Bricks_Green,j,45,9\n" +
+        "Block_Bricks_Snow,z,46,10\n" +
+        "Platform_Soft,[,47,11\n" +
+        "Ladder,],48,12\n" +
+        "Block_Slanting_1,<,49,13\n" +
+        "Block_Slanting_2,>,50,14\n" +
+        "Prickle_1,5,51,15\n" +
+        "Prickle_2,6,52,16\n" +
+        "Water,4,53,17\n" +
+        "Candle,7,54,18\n" +
+        "Seaweed,Y,55,19\n" +
+        "Message1,+,56,20\n" +
+        "Message2,-,57,21\n" +
+        "Message3,*,58,22\n" +
+        "Message4,/,59,23\n" +
+        "Platform_Moving_UD,K,60,24\n" +
+        "Platform_Moving_LR,L,61,25\n" +
+        "Platform_Moving_LR2,M,62,26\n" +
+        "Dossunsun,N,63,27\n" +
+        "Pipe1,u,64,28\n" +
+        "Pipe2,v,65,29\n" +
+        "Pipe3,w,66,30\n" +
+        "Pipe4,x,67,31\n" +
+        "Firebar_L,U,68,32\n" +
+        "Firebar_R,V,69,33\n" +
+        "Cloud_L,1,70,34\n" +
+        "Cloud_R,2,71,35";
+
+      var plt1_array_temp = new Array();
+      plt1_array_temp = op_csv.split("\n");
+      var plt1_array = new Array();
+      var plt1_array2 = new Array();
+      for (var i = 0; i < plt1_array_temp.length; i++) {
+        plt1_array[i] = plt1_array_temp[i].split(",");
+        plt1_array2[i] = plt1_array[i][1];
+      }
+
+      //For Load File from form
+      var file = document.querySelector('#mc_load');
+
+      var grid = 0;
+      file.onchange = function() {
+        var fileList = file.files;
+        //Read
+        var reader = new FileReader();
+        reader.readAsText(fileList[0]);
+        //After read
+        reader.onload = function() {
+          mc_load(reader.result);
+        };
+      };
+
+      //For Base64
+      var Base64 = {
+        encode: function(str) {
+          return btoa(unescape(encodeURIComponent(str)));
+        },
+        decode: function(str) {
+          return decodeURIComponent(escape(atob(str)));
+        }
+      };
+
+      //Draw canvas
+      function draw() {
+        var cvs_c0 = document.getElementById("c0");
+        var ctx_c0 = cvs_c0.getContext("2d");
+        var cvs_c1 = document.getElementById("c1");
+        var ctx_c1 = cvs_c1.getContext("2d");
+        var cvs_p1 = document.getElementById("plt1");
+        var ctx_p1 = cvs_p1.getContext("2d");
+
+        ctx_p1.drawImage(img_plt1, 0, 0);
+        ctx_p1.fillStyle = "rgba(" + [255, 0, 0, 0.5] + ")";
+        ctx_p1.fillRect(0, 0, 64, 64);
+        $("#editor").animate({
+          scrollTop: $("#c1").height()
+        }, 100);
+
+        //Click on Palette
+        function mcl_plt(e) {
+          var rect = e.target.getBoundingClientRect();
+          x = e.clientX - rect.left;
+          y = e.clientY - rect.top;
+          x = Math.floor(x / 64);
+          y = Math.floor(y / 64);
+          plt1_chosen_x = x;
+          plt1_chosen_y = y;
+          x = x * 64;
+          y = y * 64;
+          ctx_p1.clearRect(0, 0, 2304, 128);
+          ctx_p1.drawImage(img_plt1, 0, 0);
+          ctx_p1.fillStyle = "rgba(" + [255, 0, 0, 0.5] + ")";
+          ctx_p1.fillRect(x, y, 64, 64);
+          //Search Object from Data
+          if (plt1_chosen_y == 0) {
+            plt1_chosen_x2 = plt1_chosen_x;
+          } else if (plt1_chosen_y == 1) {
+            plt1_chosen_x2 = plt1_chosen_x + 36;
+          }
+          plt1_chip = plt1_array[plt1_chosen_x2][1];
+          if (toast_switch == 1) {
+            //Materialize.toast(plt1_array[plt1_chosen_x2][0], 300);
+          }
+        }
+        //Click on MainCanvas
+        function mdown_c(e) {
+          mouse_c = 1;
+          var rect = e.target.getBoundingClientRect();
+          x = e.clientX - rect.left;
+          y = e.clientY - rect.top;
+          x = Math.floor(x / 32);
+          y = Math.floor(y / 32);
+          mx_temp = x;
+          my_temp = y;
+          str = x + "/" + y;
+          cx = x * 32;
+          cy = y * 32;
+          ctx_c1.clearRect(cx, cy, 32, 32);
+          ctx_c1.beginPath();
+          //ctx_c1.fillRect(cx, cy, 32, 32);
+          ctx_c1.drawImage(img_plt, plt1_chosen_x * 32, plt1_chosen_y * 32, 32, 32, cx, cy, 32, 32);
+          var nc = x / 60;
+          nc = Math.floor(nc);
+          switch (nc) {
+            case 0:
+              map0[y][x] = plt1_chip;
+              break;
+            case 1:
+              map1[y][x - 60] = plt1_chip;
+              break;
+            case 2:
+              map2[y][x - 120] = plt1_chip;
+              break;
+          }
+        }
+
+        function mup(e) {
+          mouse_c = 0;
+        }
+
+        function mout(e) {
+          mouse_c = 0;
+        }
+        //Get mouse moving
+        function mmove(e) {
+          if (mouse_c == 1) {
+            var rect = e.target.getBoundingClientRect();
+            x = e.clientX - rect.left;
+            y = e.clientY - rect.top;
+            x = Math.floor(x / 32);
+            y = Math.floor(y / 32);
+            if (x != mx_temp || y != my_temp) {
+              mx_temp = x;
+              my_temp = y;
+              str = x + "/" + y;
+              cx = x * 32;
+              cy = y * 32;
+              ctx_c1.clearRect(cx, cy, 32, 32);
+              ctx_c1.beginPath();
+              //ctx_c1.fillRect(cx, cy, 32, 32);
+              ctx_c1.drawImage(img_plt, plt1_chosen_x * 32, plt1_chosen_y * 32, 32, 32, cx, cy, 32, 32);
+              var nc = x / 60;
+              nc = Math.floor(nc);
+              switch (nc) {
+                case 0:
+                  map0[y][x] = plt1_chip;
+                  break;
+                case 1:
+                  map1[y][x - 60] = plt1_chip;
+                  break;
+                case 2:
+                  map2[y][x - 120] = plt1_chip;
+                  break;
+              }
+            }
+          }
+        }
+        //Define canvas event
+        cvs_p1.addEventListener('click', mcl_plt, false);
+        cvs_c0.addEventListener('mousedown', mdown_c, false);
+        cvs_c0.addEventListener('touchstart', mdown_c, false);
+        cvs_c0.addEventListener('mouseup', mup, false);
+        cvs_c0.addEventListener('mousemove', mmove, false);
+        cvs_c0.addEventListener('mouseout', mout, false);
+        new_project();
+      }
+      //New Project
+      function new_project(cc) {
+        if (cc == 1) {
+          loader_sw(1);
+        }
+        //Normal layer
+        for (i = 0; i <= 29; i++) {
+          map0[i] = "............................................................".split('');
+          map1[i] = "............................................................".split('');
+          map2[i] = "............................................................".split('');
+        }
+        //Background layer
+        for (i = 0; i <= 29; i++) {
+          lay0[i] = "............................................................".split('');
+          lay1[i] = "............................................................".split('');
+          lay2[i] = "............................................................".split('');
+        }
+        plt1_chosen_x = 0;
+        plt1_chosen_x2 = 0;
+        plt1_chosen_y = 0;
+        plt1_chip = ".";
+        if (cc == 1) {
+          gop_elem = document.getElementById("gop");
+          gop_elem.innerHTML = "";
+          cvs_c1 = document.getElementById("c1");
+          ctx_c1 = cvs_c1.getContext("2d");
+          ctx_c1.clearRect(0, 0, 7560, 960);
+          ctx_c1.beginPath();
+          cvs_p1 = document.getElementById("plt1");
+          ctx_p1 = cvs_p1.getContext("2d");
+          ctx_p1.clearRect(0, 0, 2304, 128);
+          ctx_p1.drawImage(img_plt1, 0, 0);
+          ctx_p1.fillStyle = "rgba(" + [255, 0, 0, 0.5] + ")";
+          ctx_p1.fillRect(0, 0, 64, 64);
+          tab_back(0);
+        }
+        create_gs();
+
+        loader_sw(0);
+      }
+      //new project dialog for PC
+      function menu_new() {
+        new_com = confirm("Do you start a new project?\n(If you don't save now project, it will be deleted)");
+        if (new_com == true) {
+          new_project(1);
+        } else {
+          return;
+        }
+      }
+      //Export - HTML
+      function export_html() {
+        tab_back(4);
+        write_param();
+        document.getElementById('textarea_export').value = '<html><head>\n<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">\n<\/head>\n<body>\n' + pw_h1 + "\n" + pw_h2 + "\n" + param_only + "\n" + pw_h3;
+
+
+      }
+
+      //Write param data
+      function write_param() {
+        for (var i = 0; i <= 29; i++) {
+          map0_[i] = "\"map0-" + i + "\" : \"" + map0[i].join('') + "\", \n";
+          map0_2[i] = map0[i].join('');
+        }
+        for (var i = 0; i <= 29; i++) {
+          map1_[i] = "\"map1-" + i + "\" : \"" + map1[i].join('') + "\", \n";
+          map1_2[i] = map1[i].join('');
+        }
+        for (var i = 0; i <= 29; i++) {
+          map2_[i] = "\"map2-" + i + "\" : \"" + map2[i].join('') + "\", \n";
+          map1_2[i] = map1[i].join('');
+        }
+
+        for (var i = 0; i <= 29; i++) {
+          lay0_[i] = "\"layer0-" + i + "\" : \"" + lay0[i].join('') + "\", \n";
+        }
+        for (var i = 0; i <= 29; i++) {
+          lay1_[i] = "\"layer1-" + i + "\" : \"" + lay1[i].join('') + "\", \n";
+        }
+        for (var i = 0; i <= 29; i++) {
+          lay2_[i] = "\"layer2-" + i + "\" : \"" + lay2[i].join('') + "\", \n";
+        }
+        for (var i = 0; i <= ops_ar_test.length - 1; i++) {
+          var form_gs_val = $(`#gs_id_${ops_ar_test[i][0]}`).val();
+          if (i == ops_ar_test.length - 1) {
+            gs1_[i] = `	"${ops_ar_test[i][0]}" : "${form_gs_val}"\n`;
+          } else {
+            gs1_[i] = `	"${ops_ar_test[i][0]}" : "${form_gs_val}",\n`;
+          }
+        }
+        param_only = "	new CanvasMasao.Game({ \n" + map0_.join('') + map1_.join('') + map2_.join('') + lay0_.join('') + lay1_.join('') + lay2_.join('') + gs1_.join('') + "})\; \n ";
+        return;
+      }
+      //Switch Screen
+      function tab_back(num) {
+        $('#menu_hzt').modal('close');
+        //Back to main editor
+        if (num == 0) {
+          $('#editor').css('display', 'block');
+          $('#preview').css('display', 'none');
+          $('#export_area').css('display', 'none');
+          $('#g_option_area').css('display', 'none');
+          $('#ops_onbody').css('display', 'none');
+          $('#g_save_area').css('display', 'none');
+          $('#sp_files_area').css('display', 'none');
+          $('#gplay').css('display', 'none');
+          var menu_prev_elem = document.getElementById("menu_prev");
+          var menu_plt1_elem = document.getElementById("menu_plt1");
+          menu_prev_elem.innerHTML = '<a href="javascript:preview()"><i class="material-icons waves-effect waves-light">play_circle_filled<\/i><\/a>';
+          menu_plt1_elem.innerHTML = '<a href="#modal1" class="waves-effect waves-light"><i class="material-icons">palette<\/i><\/a>';
+
+        }
+        //Show Save Area
+        if (num == 2) {
+          $('#editor').css('display', 'none');
+          $('#preview').css('display', 'none');
+          $('#export_area').css('display', 'none');
+          $('#g_option_area').css('display', 'none');
+          $('#ops_onbody').css('display', 'none');
+          $('#g_save_area').css('display', 'block');
+          $('#sp_files_area').css('display', 'none');
+          $('#gplay').css('display', 'none');
+          var menu_prev_elem = document.getElementById("menu_prev");
+          var menu_plt1_elem = document.getElementById("menu_plt1");
+          menu_prev_elem.innerHTML = '<a href="javascript:tab_back(0)" class="waves-effect waves-light"><i class="material-icons">close<\/i><\/a>';
+          menu_plt1_elem.innerHTML = '<a href="javascript:scroll_top(1)" class="waves-effect waves-light"><i class="material-icons">keyboard_arrow_up<\/i><\/a>';
+        }
+
+        //Show GamesettingArea
+        if (num == 3) {
+          $('#editor').css('display', 'none');
+          $('#preview').css('display', 'none');
+          $('#export_area').css('display', 'none');
+          $('#g_option_area').css('display', 'block');
+          $('#ops_onbody').css('display', 'block');
+          $('#g_save_area').css('display', 'none');
+          $('#sp_files_area').css('display', 'none');
+          $('#gplay').css('display', 'none');
+          var menu_prev_elem = document.getElementById("menu_prev");
+          var menu_plt1_elem = document.getElementById("menu_plt1");
+          menu_prev_elem.innerHTML = '<a href="javascript:tab_back(0)" class="waves-effect waves-light"><i class="material-icons">close<\/i><\/a>';
+          menu_plt1_elem.innerHTML = '<a href="javascript:scroll_top(0)" class="waves-effect waves-light"><i class="material-icons">keyboard_arrow_up<\/i><\/a>';
+        }
+        //Show Export
+        if (num == 4) {
+          $('#editor').css('display', 'none');
+          $('#preview').css('display', 'none');
+          $('#export_area').css('display', 'block');
+          $('#g_option_area').css('display', 'none');
+          $('#ops_onbody').css('display', 'none');
+          $('#g_save_area').css('display', 'none');
+          $('#sp_files_area').css('display', 'none');
+          $('#gplay').css('display', 'none');
+          var menu_prev_elem = document.getElementById("menu_prev");
+          var menu_plt1_elem = document.getElementById("menu_plt1");
+          menu_prev_elem.innerHTML = '<a href="javascript:tab_back(0)" class="waves-effect waves-light"><i class="material-icons">close<\/i><\/a>';
+          menu_plt1_elem.innerHTML = '<a href="javascript:copy_html()" class="waves-effect waves-light"><i class="material-icons">content_copy<\/i><\/a>';
+        }
+        //Show iPhone Files Area
+        if (num == "ip_files") {
+          $('#editor').css('display', 'none');
+          $('#preview').css('display', 'none');
+          $('#export_area').css('display', 'none');
+          $('#g_option_area').css('display', 'none');
+          $('#ops_onbody').css('display', 'none');
+          $('#g_save_area').css('display', 'none');
+          $('#sp_files_area').css('display', 'block');
+          $('#gplay').css('display', 'none');
+          var menu_prev_elem = document.getElementById("menu_prev");
+          var menu_plt1_elem = document.getElementById("menu_plt1");
+          menu_prev_elem.innerHTML = '<a href="javascript:tab_back(0)" class="waves-effect waves-light"><i class="material-icons">close<\/i><\/a>';
+          menu_plt1_elem.innerHTML = '<a href="javascript:scroll_top(0)" class="waves-effect waves-light"><i class="material-icons">keyboard_arrow_up<\/i><\/a>';
+        }
+        //Show game
+        if (num == "gplay") {
+          $('#editor').css('display', 'none');
+          $('#preview').css('display', 'none');
+          $('#export_area').css('display', 'none');
+          $('#g_option_area').css('display', 'none');
+          $('#ops_onbody').css('display', 'none');
+          $('#g_save_area').css('display', 'none');
+          $('#sp_files_area').css('display', 'none');
+          $('#gplay').css('display', 'block');
+          var menu_prev_elem = document.getElementById("menu_prev");
+          var menu_plt1_elem = document.getElementById("menu_plt1");
+          menu_prev_elem.innerHTML = '<a href="javascript:tab_back(0)" class="waves-effect waves-light"><i class="material-icons">close<\/i><\/a>';
+          menu_plt1_elem.innerHTML = '<a href="#modal4" class="waves-effect waves-light"><i class="material-icons">info_outline<\/i><\/a>';
+        }
+      }
+      //Show Preview Game
+      function preview() {
+        loader_sw(1);
+        write_param(); //Get param data in first
+
+        if (iframe_c) {
+          var IF = document.getElementById("pid");
+          IF.parentNode.removeChild(IF);
+          iframe_c = false;
+        }
+
+        if (mframe_c) {
+          var MF = document.getElementById("pid2");
+          MF.parentNode.removeChild(MF);
+          mframe_c = false;
+        }
+
+        var iframe = document.createElement('iframe'); //Create iFrame for preview
+        iframe.setAttribute("style", "display:block;");
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute("scrolling", "no");
+        iframe.id = "pid";
+
+        document.getElementById("abc").appendChild(iframe); //Put iFrame onto DIV area
+
+        var doc = iframe.contentWindow.document; //Write Param
+        doc.open();
+        doc.write('<html><head><style>body { padding-left:0; margin: 0 auto; }<\/style>');
+        doc.write('<center><script type="text/javascript" src="CanvasMasao.js"><\/script>');
+        doc.write(pw_h2);
+        doc.write(param_only);
+        doc.write(pw_h3);
+        doc.close();
+
+        $('#editor').css('display', 'none');
+        $('#preview').css('display', 'block');
+        $('#export_area').css('display', 'none');
+        $('#g_option_area').css('display', 'none');
+        $('#ops_onbody').css('display', 'none');
+        $('#gplay').css('display', 'none');
+        iframe_c = true;
+
+        var menu_prev_elem = document.getElementById("menu_prev");
+        var menu_plt1_elem = document.getElementById("menu_plt1");
+        menu_prev_elem.innerHTML = '<a href="javascript:tab_back(0)" class="waves-effect waves-light"><i class="material-icons">close<\/i><\/a>';
+        menu_plt1_elem.innerHTML = '';
+
+        loader_sw(0);
+      }
+      //Create GameSetting Area from bamp_op file
+      function create_gs() {
+        // --Array Style--
+        // [ Param Name, Default Value, Setting Name, Input Type, Input Setting1, Input Setting2  ]
+        //
+        // --Input Type--
+        //
+        // 0 : Text Field
+        // 1 : Text Field2
+        // 2 : Select Box From 0
+        // 3 : Select Box From 1
+        // 4 : Range
+        //
+        var ops_ar_htm = "<b>Game Setting<\/b><br>";
+        for (var i = 0; i <= ops_ar_test.length - 1; i++) {
+          switch (ops_ar_test[i][4]) {
+
+            case 1:
+              if (ops_ar_test[i][5] != false) {
+                var gs_1_label = '<label for="gs_id_' + ops_ar_test[i][0] + '">' + ops_ar_test[i][5] + '<\/label>';
+              } else {
+                var gs_1_label = "";
+              }
+              var ops_genr = ops_ar_test[i][3];
+              ops_ar_htm = ops_ar_htm + '<div class="card-panel hoverable left-align genr_all genr_' + ops_genr + '" style="width:90%;"><b>' + ops_ar_test[i][2] + '<\/b>' + '<span><input id="gs_id_' + ops_ar_test[i][0] + '" value="' + ops_ar_test[i]
+                [1] + '" type="text" class="validate">' + gs_1_label + '<\/span><\/div>' + "\n";
+              break;
+            case 2:
+              var ops_genr = ops_ar_test[i][3];
+              var select_box_ary = ops_ar_test[i][5].split(',');
+              var select_box_list = "";
+              for (var i2 = 0; i2 <= select_box_ary.length - 1; i2++) {
+                if (i3 == ops_ar_test[i][1]) {
+                  select_box_list = select_box_list + '<option value="' + i2 + '" selected>' + select_box_ary[i2] + '<\/option>';
+                } else {
+                  select_box_list = select_box_list + '<option value="' + i2 + '">' + select_box_ary[i2] + '<\/option>';
+                }
+              }
+              ops_ar_htm = ops_ar_htm + '<div class="card-panel hoverable left-align genr_all genr_' + ops_genr + '" style="width:90%;"><b>' + ops_ar_test[i][2] + '<\/b><select class="browser-default" id="gs_id_' + ops_ar_test[i][0] + '">' +
+                select_box_list + '<\/select><\/div>';
+
+              break;
+            case 3:
+              var ops_genr = ops_ar_test[i][3];
+              var select_box_ary = ops_ar_test[i][5].split(',');
+              var select_box_list = "";
+              for (var i2 = 0; i2 <= select_box_ary.length - 1; i2++) {
+                i3 = i2 + 1;
+                if (i3 == ops_ar_test[i][1]) {
+                  select_box_list = select_box_list + '<option value="' + i3 + '" selected>' + select_box_ary[i2] + '<\/option>';
+                } else {
+                  select_box_list = select_box_list + '<option value="' + i3 + '">' + select_box_ary[i2] + '<\/option>';
+                }
+              }
+              ops_ar_htm = ops_ar_htm + '<div class="card-panel hoverable left-align genr_all genr_' + ops_genr + '" style="width:90%;"><b>' + ops_ar_test[i][2] + '<\/b><select class="browser-default" id="gs_id_' + ops_ar_test[i][0] + '">' +
+                select_box_list + '<\/select><\/div>';
+              break;
+
+            case 4:
+              var ops_genr = ops_ar_test[i][3];
+              if (ops_ar_test[i][7] != false) {
+                var gs_4_label = '<label for="gs_id_' + ops_ar_test[i][0] + '">' + ops_ar_test[i][7] + '<\/label>';
+              } else {
+                var gs_4_label = "";
+              }
+
+              ops_ar_htm = ops_ar_htm + '<div class="card-panel hoverable left-align genr_all genr_' + ops_genr + '" style="width:90%;"><b>' + ops_ar_test[i][2] + '<\/b>' + '<p class=" range-field"><input type="range" id="gs_id_' + ops_ar_test[i][0] +
+                '" min="' + ops_ar_test[i][5] + '" max="' + ops_ar_test[i][6] + '" value="' + ops_ar_test[i][1] + '">' + gs_4_label + '<\/p><\/div>' + "\n";
+              break;
+
+          }
+        }
+        //Write
+        gop_elem = document.getElementById("gop");
+        gop_elem.innerHTML = '<form id="form_gs">' + ops_ar_htm + "<\/form><br><br>";
+      }
+      //Sort option by genr
+      function ops_sort(num) {
+        switch (num) {
+          case 0:
+            $('.genr_all').css('display', 'block');
+            break;
+          case 1:
+            $('.genr_all').css('display', 'none');
+            $('.genr_1').css('display', 'block');
+            break;
+          case 2:
+            $('.genr_all').css('display', 'none');
+            $('.genr_2').css('display', 'block');
+            break;
+          case 3:
+            $('.genr_all').css('display', 'none');
+            $('.genr_3').css('display', 'block');
+            break;
+          case 4:
+            $('.genr_all').css('display', 'none');
+            $('.genr_4').css('display', 'block');
+            $('.genr_6').css('display', 'block');
+            $('.genr_7').css('display', 'block');
+            $('.genr_8').css('display', 'block');
+            break;
+          case 5:
+            $('.genr_all').css('display', 'none');
+            $('.genr_5').css('display', 'block');
+            break;
+        }
+      }
+      //Scroll top
+      function scroll_top(num) {
+        switch (num) {
+          case 0:
+            $("#g_option_area").animate({
+              scrollTop: 0
+            }, 'slow');
+            break;
+          case 1:
+            $("#g_save_area").animate({
+              scrollTop: 0
+            }, 'slow');
+            break;
+
+        }
+      }
+      //Save file
+      function save_bamp(num) {
+        var form_save_title_val = $('#g_st').val();
+        var form_save_author_val = $('#g_cn').val();
+        switch (num) {
+          //Download JSON file
+          case 1:
+            if (form_save_title_val != "" && form_save_author_val != "") {
+              loader_sw(1);
+              write_param();
+              var savefile_data =
+                `{"masao-json-format-version":"draft-1",\n"metadata": {"title": "${form_save_title_val}",\n"author": "${form_save_author_val}",\n"editor": "MasaoApp"\n},"params": {\n${map0_.join('')}${map1_.join('')}${map2_.join('')}${lay0_.join('')}${lay1_.join('')}${lay2_.join('')}${gs1_.join('')}}}`;
+              savefile_data = JSON.stringify(savefile_data);
+              savefile_data = JSON.parse(savefile_data);
+              var dl_elem = document.createElement('a');
+              dl_elem.download = 'masao.json';
+              dl_elem.href = 'data:,' + encodeURIComponent(savefile_data);
+              dl_elem.click();
+              loader_sw(0);
+            } else {
+              Materialize.toast('Error : Fill in the blank!', 600);
+
+            }
+            break;
+            //Post Json file to iOS
+          case 2:
+            if (form_save_title_val != "" && form_save_author_val != "") {
+              loader_sw(1);
+              write_param();
+              var savefile_data =
+                `{"masao-json-format-version":"draft-1",\n"metadata": {"title": "${form_save_title_val}",\n"author": "${form_save_author_val}",\n"editor": "MasaoApp"\n},"params": {\n${map0_.join('')}${map1_.join('')}${map2_.join('')}${lay0_.join('')}${lay1_.join('')}${lay2_.join('')}${gs1_.join('')}}}`;
+              savefile_data = JSON.stringify(savefile_data);
+              savefile_data = JSON.parse(savefile_data);
+              window.webkit.messageHandlers.callbackHandler.postMessage(savefile_data);
+              loader_sw(0);
+            } else {
+              Materialize.toast('Error : Fill in the blank!', 600);
+
+            }
+            break;
+        }
+
+      }
+
+      function draw_imgsave(x, y, c1, c2, c3, dif) {
+        var img_sv_elem = document.getElementById("img_save");
+        var img_sv = img_sv_elem.getContext("2d");
+        img_sv.fillStyle = `rgb(${c1},${c2}, 0)`;
+        x = x + dif;
+        img_sv.fillRect(x, y, 1, 1);
+      }
+      //Recieve JSON from Native program
+      function recieve_load(jsondata) {
+        var send_data = JSON.stringify(jsondata);
+        mc_load(send_data);
+      }
+      //Load data from JSON
+      function mc_load(data) {
+        loader_sw(1);
+        //Read JSON
+        var load_data = JSON.parse(data);
+        if (load_data["masao-json-format-version"] == null) {
+          alert("ERROR\nThis is not Masao JSON Format");
+          loader_sw(0);
+          $('#mc_load').val("");
+          return;
+        }
+        //Get metadata if it's including
+        if ('metadata' in load_data) {
+          if (load_data["metadata"].author != null) {
+            $('#g_cn').val(load_data["metadata"].author);
+          }
+          if (load_data["metadata"].title != null) {
+            $('#g_st').val(load_data["metadata"].title);
+          }
+        }
+        //Get map data
+        for (i = 0; i <= 29; i++) {
+          if (load_data["params"][`map0-${i}`] == null) {
+            map0[i] = "............................................................".split('');
+          } else {
+            map0[i] = load_data["params"][`map0-${i}`].split('');
+          }
+
+          if (load_data["params"][`map1-${i}`] == null) {
+            map1[i] = "............................................................".split('');
+          } else {
+            map1[i] = load_data["params"][`map1-${i}`].split('');
+          }
+
+          if (load_data["params"][`map2-${i}`] == null) {
+            map2[i] = "............................................................".split('');
+          } else {
+            map2[i] = load_data["params"][`map2-${i}`].split('');
+          }
+        }
+        //Reset canvas
+        plt1_chosen_x = 0;
+        plt1_chosen_x2 = 0;
+        plt1_chosen_y = 0;
+        plt1_chip = ".";
+        cvs_c1 = document.getElementById("c1");
+        ctx_c1 = cvs_c1.getContext("2d");
+        ctx_c1.clearRect(0, 0, 7560, 960);
+        ctx_c1.beginPath();
+        cvs_p1 = document.getElementById("plt1");
+        ctx_p1 = cvs_p1.getContext("2d");
+        ctx_p1.clearRect(0, 0, 2304, 128);
+        ctx_p1.drawImage(img_plt1, 0, 0);
+        ctx_p1.fillStyle = "rgba(" + [255, 0, 0, 0.5] + ")";
+        ctx_p1.fillRect(0, 0, 64, 64);
+        //Recreate Game setting
+        gop_elem = document.getElementById("gop");
+        gop_elem.innerHTML = "";
+        create_gs();
+        for (var i = 0; i <= ops_ar_test.length - 1; i++) {
+          if (Object.keys(load_data["params"]).indexOf(ops_ar_test[i][0]) >= 0) {
+
+            if (load_data["params"][`${ops_ar_test[i][0]}`] != "") {
+              $(`#gs_id_${ops_ar_test[i][0]}`).val(load_data["params"][`${ops_ar_test[i][0]}`]);
+            }
+            //document.write(ops_ar_test[i][0] + ":" + load_data["params"][`${ops_ar_test[i][0]}`] + "<br>");
+          }
+
+        }
+        //Rewrite main canvas
+        //i2 = X, i = Y
+        for (i = 0; i <= 29; i++) {
+          for (i2 = 0; i2 <= 59; i2++) {
+            if (map0[i][i2] != ".") {
+              var count_parts = plt1_array2.indexOf(map0[i][i2]);
+              plt1_chosen_x = count_parts;
+              plt1_chosen_y = 0;
+              if (count_parts >= 36) {
+                plt1_chosen_x = count_parts - 36;
+                plt1_chosen_y = 1;
+              }
+              var aaa = `X is ${i2} : Y is ${i} : ${count_parts} : ${plt1_chosen_x} : ${plt1_chosen_y} <br>`;
+              ctx_c1.drawImage(img_plt, plt1_chosen_x * 32, plt1_chosen_y * 32, 32, 32, i2 * 32, i * 32, 32, 32);
+
+            }
+          }
+        }
+        for (i = 0; i <= 29; i++) {
+          for (i2 = 0; i2 <= 59; i2++) {
+            if (map1[i][i2] != ".") {
+              var count_parts = plt1_array2.indexOf(map1[i][i2]);
+              plt1_chosen_x = count_parts;
+              plt1_chosen_y = 0;
+              if (count_parts >= 36) {
+                plt1_chosen_x = count_parts - 36;
+                plt1_chosen_y = 1;
+              }
+              var count_mp = i2 + 60;
+              var aaa = `X is ${i2} : Y is ${i} : ${count_parts} : ${plt1_chosen_x} : ${plt1_chosen_y} <br>`;
+              ctx_c1.drawImage(img_plt, plt1_chosen_x * 32, plt1_chosen_y * 32, 32, 32, count_mp * 32, i * 32, 32, 32);
+
+            }
+          }
+        }
+        for (i = 0; i <= 29; i++) {
+          for (i2 = 0; i2 <= 59; i2++) {
+            if (map2[i][i2] != ".") {
+              var count_parts = plt1_array2.indexOf(map2[i][i2]);
+              plt1_chosen_x = count_parts;
+              plt1_chosen_y = 0;
+              if (count_parts >= 36) {
+                plt1_chosen_x = count_parts - 36;
+                plt1_chosen_y = 1;
+              }
+              var count_mp = i2 + 120;
+              var aaa = `X is ${i2} : Y is ${i} : ${count_parts} : ${plt1_chosen_x} : ${plt1_chosen_y} <br>`;
+              ctx_c1.drawImage(img_plt, plt1_chosen_x * 32, plt1_chosen_y * 32, 32, 32, count_mp * 32, i * 32, 32, 32);
+
+            }
+          }
+        }
+
+        $('#modal2').modal('close');
+        tab_back(0);
+        loader_sw(0);
+      }
+
+      //Connection with Swift from here
+      function Swift_newproject() {
+        $('#menu_hzt').modal('close');
+        window.webkit.messageHandlers.callbackNewgame.postMessage("");
+      }
+
+      function Swift_scan() {
+        $('#menu_hzt').modal('close');
+        window.webkit.messageHandlers.callbackScan.postMessage("");
+      }
+
+      function Swift_load() {
+        $('#menu_hzt').modal('close');
+        window.webkit.messageHandlers.callbackLoad.postMessage("");
+        tab_back("ip_files");
+      }
+      //Make local datas list
+      function Make_Lists(data) {
+        var spf_htm = '<ul class=\"collection with-header\"><li class=\"collection-header\"><h4>Local Files<\/h4><\/li>';
+        var localfiles = new Array();
+        //data = ["test.json", "test2.json"];
+        localfiles = data;
+        if (data == "" || data == ".DS_Store") {
+          data = null;
+        }
+        if (data != null) {
+          for (var i = 0; i <= localfiles.length - 1; i++) {
+            if (localfiles[i] != ".DS_Store") {
+              spf_htm = spf_htm +
+                `<li class=\"collection-item\"><div>${localfiles[i]}<a href=\"javascript:Swift_Deletefile('${localfiles[i]}');\" class=\"secondary-content\"><i class=\"material-icons pink-text\">delete</i><\/a><a href=\"javascript:Swift_Open('${localfiles[i]}');\" class=\"secondary-content\"><i class=\"material-icons green-text\">play_arrow<\/i><\/a><\/div><\/li>`;
+            }
+          }
+          spf_htm = spf_htm + '<\/ul>';
+        } else {
+          spf_htm = spf_htm + `<li class="collection-item"><div>You have no any files.</div></li><\/ul>`
+        }
+        spf_elem = document.getElementById("spf");
+        spf_elem.innerHTML = spf_htm;
+      }
+
+      function Swift_Open(fname) {
+        //alert(fname);
+        window.webkit.messageHandlers.callbackOpen.postMessage(fname);
+
+      }
+
+      function Swift_Deletefile(fname) {
+        window.webkit.messageHandlers.callbackDeletefile.postMessage(fname);
+      }
+
+      function Swift_info() {
+        $('#menu_hzt').modal('close');
+        $('#modal3').modal('open');
+      }
+      //Show grid when a device is shaked
+      function Shaked(ch) {
+
+        if (grid == 0) {
+          cvs_c0 = document.getElementById("c0");
+          ctx_c0 = cvs_c0.getContext("2d");
+          ctx_c0.clearRect(0, 0, 7560, 960);
+          ctx_c0.beginPath();
+          ctx_c0.fillStyle = "rgb(" + [255, 255, 255] + ")";
+          for (i = 1; i < 180; i++) {
+            ctx_c0.moveTo(i * 32, 0);
+            ctx_c0.lineTo(i * 32, 960);
+          }
+          for (i = 1; i < 30; i++) {
+            ctx_c0.moveTo(0, i * 32);
+            ctx_c0.lineTo(5760, i * 32);
+          }
+          ctx_c0.stroke();
+          grid = 1;
+        } else {
+          cvs_c0 = document.getElementById("c0");
+          ctx_c0 = cvs_c0.getContext("2d");
+          ctx_c0.clearRect(0, 0, 7560, 960);
+          grid = 0;
+        }
+
+      }
+      //Read Masao JSON
+      function MasaoJson(data) {
+        loader_sw(1);
+        tab_back("gplay");
+
+        if (mframe_c) {
+          var MF = document.getElementById("pid2");
+          MF.parentNode.removeChild(MF);
+          mframe_c = false;
+        }
+
+        if (iframe_c) {
+          var IF = document.getElementById("pid");
+          IF.parentNode.removeChild(IF);
+          iframe_c = false;
+        }
+
+        var data2 = JSON.stringify(data);
+        data2 = JSON.parse(data2);
+
+        //Check json format
+        if (data2["masao-json-format-version"] == null) {
+          alert("ERROR\nThis is not Masao JSON Format");
+          loader_sw(0);
+          return;
+        }
+        //Get metadata
+        var game_Title = data2["metadata"]["title"];
+        var game_Creator = data2["metadata"]["author"];
+        var game_Editor = data2["metadata"]["editor"];
+        //Get params
+        var params = JSON.stringify(data2["params"])
+
+        var tag1 = '<script type=\"text\/javascript\">new CanvasMasao.Game(';
+        var tag2 = ');<\/script><\/body><\/html>';
+
+        var mframe = document.createElement('iframe'); //Create iFrame for preview
+        mframe.setAttribute("style", "display:block;");
+        mframe.setAttribute("frameborder", "0");
+        mframe.setAttribute("scrolling", "no");
+        mframe.id = "pid2";
+        document.getElementById("gp_area").appendChild(mframe); //Put iFrame onto DIV area
+        var doc = mframe.contentWindow.document; //Write Param
+        doc.open();
+        doc.write('<html><head><style>body { padding-left:0; margin: 0 auto; }<\/style>');
+        doc.write('<center><script type="text/javascript" src="CanvasMasao.js"><\/script>');
+        doc.write(pw_h2 + "new CanvasMasao.Game(");
+        doc.write(params);
+        doc.write(");" + pw_h3);
+        doc.close();
+
+        //If title and creator data are not exist
+        if (game_Title == "") {
+          game_Title = "No title";
+        }
+        if (game_Creator == "") {
+          game_Creator = "Unknown";
+        }
+        //Write them to information window
+        document.getElementById("g_title").textContent = game_Title;
+        document.getElementById("g_user").textContent = game_Creator;
+        mframe_c = true;
+        loader_sw(0);
+      }
+      //Copy clipboard HTML data
+      function copy_html() {
+        var htm = document.f3.textarea_export.value;
+        window.webkit.messageHandlers.callbackCopy.postMessage(htm);
+      }
+      //for debug
+      function yet() {
+        $('#menu_hzt').modal('close');
+        window.webkit.messageHandlers.callbackLogin.postMessage("notyet");
+      }
+    </script>
+  </div>
+  <!-- loading screen -->
+  <script src="js/loading.js"></script>
+</body>
+
+</html>
