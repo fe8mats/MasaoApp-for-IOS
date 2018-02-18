@@ -4,6 +4,9 @@ Developer: Tex (Tetsuya Matsuda),
 * Super Masao MY - <http://tex1.symphonic-net.com/>
 * Twitter - [@393mats](https://twitter.com/393Mats)
 
+<img src="https://github.com/393mats/MasaoApp-for-IOS/blob/master/mapp_mu_large.png" width="50%">
+
+
 MasaoApp is the project of smartphone application for the very ~~famous~~ traditional parody web game __"SuperMasao"__. Original Masao Construction for Java is developed by [Naoto Fukuda](http://www.t3.rim.or.jp/~naoto/naoto.html), and JSMasao is ported by [Ryo](http://ryo-9399.github.io/).  
 
 The base of game editor is the new version of  [BAMP](http://tex1.symphonic-net.com/bamp/about.html) which has been developed using HTML5 and CSS3. So in this app, Webview component is put full-page. Thanks to that, MasaoApp is easy to port to other system if developer write the program for connection with native application. Also background layer and some other functions are excluded from the app. There are 2 reasons why I did that. One is in order to fascinate some people who wants to make more original Masao game, through the MasaoApp limited game functions. And another reason is I was just lazy to implement. The app can handle JSON file based on the masao-json-format, and can export basic HTML param data. Therefore it has good compatibility for other editor or service, except some excluded functions. 
