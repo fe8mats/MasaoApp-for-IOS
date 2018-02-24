@@ -4,8 +4,8 @@ Developer: Tex (Tetsuya Matsuda),
 * Super Masao MY - <http://tex1.symphonic-net.com/>
 * Twitter - [@393mats](https://twitter.com/393Mats)
 
-<img src="https://github.com/393mats/MasaoApp-for-IOS/blob/master/mapp_mu_large.png" width="50%">
-<img src="https://github.com/393mats/MasaoApp-for-IOS/blob/master/mapp_mu3_large.png" width="50%">
+<img src="https://github.com/393mats/MasaoApp-for-IOS/blob/master/PR_Image/MasaoApp_mu_1.png" width="50%">
+<img src="https://github.com/393mats/MasaoApp-for-IOS/blob/master/PR_Image/MasaoApp_mu_2.png" width="50%">
 
 
 MasaoApp is the project of smartphone application for the very ~~famous~~ traditional parody web game __"SuperMasao"__. Original Masao Construction for Java is developed by [Naoto Fukuda](http://www.t3.rim.or.jp/~naoto/naoto.html), and JSMasao is ported by [Ryo](http://ryo-9399.github.io/).  
