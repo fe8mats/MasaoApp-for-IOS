@@ -2,13 +2,16 @@
 //  AppDelegate.swift
 //  MasaoProducer
 //
-//  Created by Tetsuya Matsuda on 2017/09/28.
-//  Copyright © 2017 Tex. All rights reserved.
+//  Created by 松田哲弥 on 2017/09/28.
+//  Copyright © 2017年 Terry. All rights reserved.
 //
 
 import UIKit
+import WebKit
 import Firebase
 import AVFoundation
+import CoreImage
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        //Firebase config
+        // Firebase config
         FirebaseApp.configure()
         
         return true
